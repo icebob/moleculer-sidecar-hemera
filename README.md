@@ -74,6 +74,13 @@ hemera.act({
 }).catch(err => hemera.log.error(err));
 ```
 
+# Settings
+
+| Property | Type | Default | Description |
+| -------- | ---- | ------- | ----------- |
+| `natsOptions` | `Object` | `undefined` | NATS `connect` options for Hemera. |
+| `hemeraOptions` | `Object` | `{}` | Hemera constructor options. |
+
 
 # Test
 ```
