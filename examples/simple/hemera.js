@@ -4,12 +4,12 @@ const Hemera = require("nats-hemera");
 const nats = require("nats").connect();
 
 const hemera = new Hemera(nats, {
-	logLevel: "info"
+	logLevel: "warn"
 });
 
 // Call Moleculer service
 function callMoleculerService() {
-	hemera.log.info("Call 'greeter.welcome' Moleculer service...");
+	console.log("Call 'greeter.welcome' Moleculer service...");
 	
 	hemera.act({
 		topic: "moleculer",
@@ -19,15 +19,15 @@ function callMoleculerService() {
 			name: "John"
 		}
 	}).then(msg => {
-		hemera.log.info("Result from Moleculer service: ", msg.data);
+		console.log("Result from Moleculer service: ", msg.data);
 	}).catch(err => {
-		hemera.log.error("Error", err);
+		console.log("Error", err);
 	});
 }
 
 // Emit Moleculer event
 function emitMoleculerEvent() {
-	hemera.log.info("Send event to Moleculer service...");
+	console.log("Send event to Moleculer service...");
 	hemera.act({
 		topic: "moleculer",
 		cmd: "emit",
@@ -37,7 +37,7 @@ function emitMoleculerEvent() {
 			name: "John"
 		}
 	}).catch(err => {
-		hemera.log.error("Error", err);
+		console.log("Error", err);
 	});
 }
 
@@ -47,15 +47,13 @@ hemera.ready(() => {
 			topic: "math",
 			cmd: "add"
 		},
-		function(req, cb) {
-			cb(null, req.a + req.b);
-		}
+		req => Promise.resolve(req.a + req.b)
 	);
 
 	setInterval(() => {
 		callMoleculerService();
 		
-		emitMoleculerEvent();
+		//emitMoleculerEvent();
 
 	}, 2000);
 });

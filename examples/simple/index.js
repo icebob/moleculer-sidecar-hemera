@@ -35,7 +35,7 @@ broker.start().then(() => {
 
 	// Call action
 	broker.call("hemera.act", { topic: "math", cmd: "add", a: 5, b: 3 })
-		.then(res => broker.logger.info("Result from Hemera service: ", res))
+		.then(res => broker.logger.info("Result from Hemera service: ", res.data))
 		.catch(broker.logger.error);
 
 });

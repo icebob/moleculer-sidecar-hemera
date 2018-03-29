@@ -19,7 +19,7 @@ module.exports = {
 		natsOptions: undefined,
 
 		hemeraOptions: {
-			logLevel: "info"
+			logLevel: "warn"
 		}
 	},
 
@@ -33,8 +33,7 @@ module.exports = {
 		 */
 		act: {
 			handler(ctx) {
-				return this.hemera.act(ctx.params)
-					.then(msg => msg.data);
+				return this.hemera.act(ctx.params);
 			}
 		}
 	},
@@ -48,10 +47,11 @@ module.exports = {
 		createHemera() {
 			const nats = require("nats").connect(this.settings.natsOptions);
 			this.hemera = new Hemera(nats, this.settings.hemeraOptions);
+			this.hemera.logger = this.logger;
 
-			this.hemera.ready(() => {
-				this.registerHemeraService();
-			});
+			this.hemera.ready()
+				.then(() => this.registerHemeraService())
+				.catch(err => this.broker.fatal("Hemera initialization error!", err));
 
 		},
 
@@ -64,28 +64,24 @@ module.exports = {
 			this.hemera.add({
 				topic: "moleculer",
 				cmd: "call"
-			}, (req, cb) => {
-				this.broker.call(req.action, req.params, req.options)
-					.then(res => cb(null, res))
-					.catch(err => cb(err));
-			});
+			}, req => this.broker.call(req.action, req.params, req.options));
 
 			// Hemera action to emit Moleculer event
 			this.hemera.add({
 				topic: "moleculer",
 				cmd: "emit"
-			}, (req, cb) => {
+			}, req => {
 				this.broker.emit(req.event, req.payload, req.groups);
-				cb();
+				return this.Promise.resolve();
 			});
 
 			// Hemera action to broadcast Moleculer event
 			this.hemera.add({
 				topic: "moleculer",
 				cmd: "broadcast"
-			}, (req, cb) => {
+			}, req => {
 				this.broker.broadcast(req.event, req.payload, req.groups);
-				cb();
+				return this.Promise.resolve();
 			});
 		}
 	},
