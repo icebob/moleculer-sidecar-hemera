@@ -1,9 +1,10 @@
 "use strict";
 
-const { ServiceBroker } = require("moleculer");
-const MyService = require("../../src");
+//const { ServiceBroker } = require("moleculer");
+//const MyService = require("../../src");
 
-describe("Test MyService", () => {
+describe.skip("Test MyService", () => {
+	/*
 	const broker = new ServiceBroker();
 	const service = broker.createService(MyService);
 
@@ -22,6 +23,6 @@ describe("Test MyService", () => {
 			expect(res).toBe("Hello John");
 		});
 	});
-
+	*/
 });
 
