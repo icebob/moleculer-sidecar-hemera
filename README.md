@@ -1,6 +1,6 @@
 # moleculer-sidecar-hemera [![NPM version](https://img.shields.io/npm/v/moleculer-sidecar-hemera.svg)](https://www.npmjs.com/package/moleculer-sidecar-hemera)
 
-Sidecar service to call Hemera services.
+Sidecar service to call [Hemera](https://hemerajs.github.io/hemera/) services.
 
 ## Features
 - call Hemera service from Moleculer service
