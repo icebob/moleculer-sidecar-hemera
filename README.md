@@ -72,7 +72,7 @@ hemera.act({
 }).catch(err => hemera.log.error(err));
 ```
 
-# Settings
+## Settings
 
 | Property | Type | Default | Description |
 | -------- | ---- | ------- | ----------- |
@@ -80,7 +80,7 @@ hemera.act({
 | `hemeraOptions` | `Object` | `{}` | Hemera constructor options. |
 
 
-# Test
+## Test
 ```
 $ npm test
 ```
@@ -91,13 +91,13 @@ In development with watching
 $ npm run ci
 ```
 
-# Contribution
+## Contribution
 Please send pull requests improving the usage and fixing bugs, improving documentation and providing better examples, or providing some testing, because these things are important.
 
-# License
+## License
 The project is available under the [MIT license](https://tldrlegal.com/license/mit-license).
 
-# Contact
+## Contact
 Copyright (c) 2018 MoleculerJS
 
 [![@icebob](https://img.shields.io/badge/github-moleculerjs-green.svg)](https://github.com/moleculerjs) [![@icebob](https://img.shields.io/badge/twitter-Icebobcsi-blue.svg)](https://twitter.com/Icebobcsi)
